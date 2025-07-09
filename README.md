@@ -1,20 +1,33 @@
-# Vue 3 + TypeScript + Vite
+# EinkaufsOrakel – Shared Shopping List for Households
+EinkaufsOrakel is a collaborative web app for shared households (WGs). It provides a live-synced shopping list so all members can stay on the same page.
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# Tech Stack
+| Area       | Stack                       |
+|------------|-----------------------------|
+| Frontend   | Vue 3 + Vite + TypeScript   |
+| Backend    | TBD (probably Python or Go) |
+| Repository | Git + GitHub                |
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
 
+We use modern technologies to learn best practices for real-world software development.
 
+# Getting Started (WIP)
+
+```bash
+# Setup Frontend
+cd frontend
+npm install
+npm run dev
+```
 
 # Branch Naming Convention
 To keep our Git repository organized and readable, we follow a structured branch naming convention inspired by common industry practices. Each branch name starts with a type prefix followed by a short, descriptive name:
 
-| Prefix      | Bedeutung                                  |
-| ----------- | ------------------------------------------ |
-| `feat/`     | Neues Feature                              |
-| `fix/`      | Bugfix                                     |
-| `docs/`     | Dokumentation                              |
-| `chore/`    | Wartung, keine funktionalen Änderungen     |
-| `refactor/` | Code-Umstrukturierung ohne neues Verhalten |
-| `test/`     | Testbezogene Änderungen                    |
-
+| Prefix      | Purpose                                               |
+|-------------|-------------------------------------------------------|
+| `feat/`     | New features or major changes                         |
+| `fix/`      | Bug fixes                                             |
+| `docs/`     | Documentation updates                                 |
+| `chore/`    | Maintenance tasks (e.g., dependency updates, cleanup) |
+| `refactor/` | Code changes that do not affect behavior              |
+| `test/`     | Adding or modifying tests                             |
