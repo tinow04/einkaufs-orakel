@@ -1,12 +1,11 @@
-# EinkaufsOrakel – Shared Shopping List for Households
-EinkaufsOrakel is a collaborative web app for shared households (WGs). It provides a live-synced shopping list so all members can stay on the same page.
+# EinkaufsOrakel - Shared Shopping List for Households
+EinkaufsOrakel is a collaborative web app for shared households. It provides a live-synced shopping list so all members can stay on the same page.
 
 # Tech Stack
 | Area       | Stack                       |
 |------------|-----------------------------|
 | Frontend   | Vue 3 + Vite + TypeScript   |
 | Backend    | TBD (probably Python or Go) |
-| Repository | Git + GitHub                |
 
 
 We use modern technologies to learn best practices for real-world software development.
@@ -15,7 +14,6 @@ We use modern technologies to learn best practices for real-world software devel
 
 ```bash
 # Setup Frontend
-cd frontend
 npm install
 npm run dev
 ```
