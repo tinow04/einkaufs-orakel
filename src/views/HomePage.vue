@@ -1,12 +1,23 @@
 <script setup lang="ts">
-
-import ImageRow from '../components/ui/cards/LocationCard.vue'
+import ImageRow from '../components/ui/cards/LocationCard.vue';
 
 const standorte = [
-  { to: '/kehl', src: new URL('../assets/kehl.webp', import.meta.url).href, alt: 'Kehl' },
-  { to: '/rastatt', src: new URL('../assets/rastatt.jpeg', import.meta.url).href, alt: 'Rastatt' },
-  { to: '/rheinstetten', src: new URL('../assets/rheinstetten.jpeg', import.meta.url).href, alt: 'Rheinstetten' }
-]
+  {
+    to: '/kehl',
+    src: new URL('../assets/kehl.webp', import.meta.url).href,
+    alt: 'Kehl',
+  },
+  {
+    to: '/rastatt',
+    src: new URL('../assets/rastatt.jpeg', import.meta.url).href,
+    alt: 'Rastatt',
+  },
+  {
+    to: '/rheinstetten',
+    src: new URL('../assets/rheinstetten.jpeg', import.meta.url).href,
+    alt: 'Rheinstetten',
+  },
+];
 
 type Announcement = {
   titel: string;
@@ -112,7 +123,7 @@ function formatTimeRange(start: string, ende: string): string {
     </section>
     <h2 class="standorte-heading">Unsere Standorte</h2>
     <div class="image-row">
-      <ImageRow :items="standorte"/>
+      <ImageRow :items="standorte" />
     </div>
     <section class="termine-section" aria-labelledby="termine-heading">
       <h2 id="termine-heading">Aktuelle Flohmarkt-Termine</h2>
@@ -131,7 +142,6 @@ function formatTimeRange(start: string, ende: string): string {
     </section>
   </div>
 </template>
-
 
 <style scoped>
 .standorte-heading {
