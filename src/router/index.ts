@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import ShoppingPage from '../views/ShoppingPage.vue';
 import LoginPage from '../views/LoginPage.vue';
+import HomePage from '../views/HomePage.vue';
+import ShoppingPage from '../views/ShoppingPage.vue';
 
 const routes = [
-    { path: '/', component: ShoppingPage },
-    { path: '/login', component: LoginPage }
+    { path: '/', component: HomePage },
+    { path: '/login', component: LoginPage },
+    { path: '/rastatt', component: ShoppingPage },
 ];
 
 const router = createRouter({
