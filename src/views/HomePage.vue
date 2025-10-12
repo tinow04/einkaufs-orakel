@@ -1,3 +1,80 @@
+<script setup lang="ts">
+
+import ImageRow from '../components/ui/cards/LocationCard.vue'
+
+const standorte = [
+  { to: '/kehl', src: new URL('../assets/kehl.webp', import.meta.url).href, alt: 'Kehl' },
+  { to: '/rastatt', src: new URL('../assets/rastatt.jpeg', import.meta.url).href, alt: 'Rastatt' },
+  { to: '/rheinstetten', src: new URL('../assets/rheinstetten.jpeg', import.meta.url).href, alt: 'Rheinstetten' }
+]
+
+type Announcement = {
+  titel: string;
+  text: string;
+  datum: string;
+  link?: string;
+};
+
+// Demo-Einträge – später durch Admin-Backend ersetzbar
+const announcements: Announcement[] = [
+  {
+    titel: 'Keine Aktuellen Ankündigungen',
+    text: 'aktuell keine Ankündigungen!',
+    datum: '2025-10-12',
+    link: '/termine',
+  },
+];
+
+type Termin = {
+  ort: string;
+  datum: string; // ISO-Date (YYYY-MM-DD)
+  start: string; // "HH:MM"
+  ende: string; // "HH:MM"
+  link: string; // RouterLink target
+};
+
+// Beispiel-Daten – kannst du später aus einer API/Datei laden
+const events: Termin[] = [
+  {
+    ort: 'Kehl',
+    datum: '2025-11-02',
+    start: '09:00',
+    ende: '16:00',
+    link: '/kehl',
+  },
+  {
+    ort: 'Rastatt',
+    datum: '2025-10-20',
+    start: '10:00',
+    ende: '17:00',
+    link: '/rastatt',
+  },
+  {
+    ort: 'Rheinstetten',
+    datum: '2025-11-10',
+    start: '10:00',
+    ende: '17:00',
+    link: '/rheinstetten',
+  },
+];
+
+const df = new Intl.DateTimeFormat('de-DE', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+
+function formatDate(iso: string): string {
+  // Safari-kompatible Umwandlung
+  const [y, m, d] = iso.split('-').map(Number);
+  return df.format(new Date(y, m - 1, d));
+}
+
+function formatTimeRange(start: string, ende: string): string {
+  return `${start} – ${ende}`;
+}
+</script>
+
 <template>
   <div class="home">
     <header class="page-header">
@@ -35,28 +112,10 @@
     </section>
     <h2 class="standorte-heading">Unsere Standorte</h2>
     <div class="image-row">
-      <RouterLink to="/rastatt">
-        <img
-          src="../assets/rastatt.jpeg"
-          alt="Rastatt"
-          class="clickable-image"
-        />
-      </RouterLink>
-
-      <RouterLink to="/kehl">
-        <img src="../assets/kehl.jpeg" alt="Kehl" class="clickable-image" />
-      </RouterLink>
-
-      <RouterLink to="/rheinstetten">
-        <img
-          src="../assets/rheinstetten.jpeg"
-          alt="Rheinstetten"
-          class="clickable-image"
-        />
-      </RouterLink>
+      <ImageRow :items="standorte"/>
     </div>
     <section class="termine-section" aria-labelledby="termine-heading">
-      <h2 id="termine-heading">Nächste Flohmarkt-Termine</h2>
+      <h2 id="termine-heading">Aktuelle Flohmarkt-Termine</h2>
       <div class="termine-grid">
         <article class="termin-card" v-for="(e, idx) in events" :key="idx">
           <header class="termin-header">
@@ -73,80 +132,13 @@
   </div>
 </template>
 
-<script setup lang="ts">
-type Announcement = {
-  titel: string;
-  text: string;
-  datum: string;
-  link?: string;
-};
-
-// Demo-Einträge – später durch Admin-Backend ersetzbar
-const announcements: Announcement[] = [
-  {
-    titel: 'Nächster Flohmarkt-Termin verlegt',
-    text: 'Der Termin in Rastatt wurde auf den 20. Oktober verschoben. Danke für euer Verständnis!',
-    datum: '2025-10-12',
-    link: '/termine',
-  },
-];
-
-type Termin = {
-  ort: string;
-  datum: string; // ISO-Date (YYYY-MM-DD)
-  start: string; // "HH:MM"
-  ende: string; // "HH:MM"
-  link: string; // RouterLink target
-};
-
-// Beispiel-Daten – kannst du später aus einer API/Datei laden
-const events: Termin[] = [
-  {
-    ort: 'Rastatt',
-    datum: '2025-10-20',
-    start: '10:00',
-    ende: '17:00',
-    link: '/rastatt',
-  },
-  {
-    ort: 'Kehl',
-    datum: '2025-11-02',
-    start: '09:00',
-    ende: '16:00',
-    link: '/kehl',
-  },
-  {
-    ort: 'Rheinstetten',
-    datum: '2025-11-10',
-    start: '10:00',
-    ende: '17:00',
-    link: '/rheinstetten',
-  },
-];
-
-const df = new Intl.DateTimeFormat('de-DE', {
-  day: '2-digit',
-  month: 'long',
-  year: 'numeric',
-});
-
-function formatDate(iso: string): string {
-  // Safari-kompatible Umwandlung
-  const [y, m, d] = iso.split('-').map(Number);
-  return df.format(new Date(y, m - 1, d));
-}
-
-function formatTimeRange(start: string, ende: string): string {
-  return `${start} – ${ende}`;
-}
-</script>
 
 <style scoped>
 .standorte-heading {
   font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.8rem);
   text-align: center;
-  margin-top: clamp(40px, 6vh, 80px);
-  margin-bottom: clamp(20px, 4vh, 40px);
+  margin-top: clamp(60px, 10vh, 80px);
+  margin-bottom: clamp(10px, 2vh, 10px);
   color: #222;
 }
 .image-row {
@@ -155,8 +147,8 @@ function formatTimeRange(start: string, ende: string): string {
   align-items: center;
   gap: 32px;
   flex-wrap: wrap;
-  margin-top: clamp(40px, 6vh, 80px);
-  margin-bottom: clamp(40px, 8vh, 100px);
+  margin-top: clamp(20px, 3vh, 40px);
+  margin-bottom: clamp(20px, 5vh, 100px);
 }
 
 .page-header {
