@@ -4,9 +4,9 @@ import HomePage from '../views/HomePage.vue';
 import ShoppingPage from '../views/ShoppingPage.vue';
 
 const routes = [
-    { path: '/', component: HomePage },
-    { path: '/login', component: LoginPage },
-    { path: '/rastatt', component: ShoppingPage },
+  { path: '/', component: HomePage },
+  { path: '/login', component: LoginPage },
+  { path: '/rastatt', component: ShoppingPage },
 ];
 
 const router = createRouter({

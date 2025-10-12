@@ -13,10 +13,18 @@
         </nav>
       </div>
     </header>
-    <section class="announcement-section" aria-labelledby="ank-heading" v-if="announcements.length">
+    <section
+      class="announcement-section"
+      aria-labelledby="ank-heading"
+      v-if="announcements.length"
+    >
       <h2 class="ank-heading-visible">Aktuelle Ankündigungen</h2>
       <h2 id="ank-heading" class="visually-hidden">Aktuelle Ankündigungen</h2>
-      <article class="announcement-card" v-for="(a, i) in announcements" :key="i">
+      <article
+        class="announcement-card"
+        v-for="(a, i) in announcements"
+        :key="i"
+      >
         <div class="announcement-meta">
           <span class="badge">Neu</span>
           <time class="announcement-date">{{ formatDate(a.datum) }}</time>
@@ -28,7 +36,11 @@
     <h2 class="standorte-heading">Unsere Standorte</h2>
     <div class="image-row">
       <RouterLink to="/rastatt">
-        <img src="../assets/rastatt.jpeg" alt="Rastatt" class="clickable-image" />
+        <img
+          src="../assets/rastatt.jpeg"
+          alt="Rastatt"
+          class="clickable-image"
+        />
       </RouterLink>
 
       <RouterLink to="/kehl">
@@ -36,23 +48,25 @@
       </RouterLink>
 
       <RouterLink to="/rheinstetten">
-        <img src="../assets/rheinstetten.jpeg" alt="Rheinstetten" class="clickable-image" />
+        <img
+          src="../assets/rheinstetten.jpeg"
+          alt="Rheinstetten"
+          class="clickable-image"
+        />
       </RouterLink>
     </div>
     <section class="termine-section" aria-labelledby="termine-heading">
       <h2 id="termine-heading">Nächste Flohmarkt-Termine</h2>
       <div class="termine-grid">
-        <article
-          class="termin-card"
-          v-for="(e, idx) in events"
-          :key="idx"
-        >
+        <article class="termin-card" v-for="(e, idx) in events" :key="idx">
           <header class="termin-header">
             <h3 class="termin-location">{{ e.ort }}</h3>
             <p class="termin-date">{{ formatDate(e.datum) }}</p>
           </header>
           <p class="termin-time">{{ formatTimeRange(e.start, e.ende) }} Uhr</p>
-          <RouterLink class="termin-link" :to="e.link">Mehr erfahren</RouterLink>
+          <RouterLink class="termin-link" :to="e.link"
+            >Mehr erfahren</RouterLink
+          >
         </article>
       </div>
     </section>
@@ -60,52 +74,71 @@
 </template>
 
 <script setup lang="ts">
-  type Announcement = {
-    titel: string;
-    text: string;
-    datum: string; // ISO-Date (YYYY-MM-DD)
-    link?: string;
-  };
+type Announcement = {
+  titel: string;
+  text: string;
+  datum: string;
+  link?: string;
+};
 
-  // Demo-Einträge – später durch Admin-Backend ersetzbar
-  const announcements: Announcement[] = [
-    {
-      titel: 'Nächster Flohmarkt-Termin verlegt',
-      text: 'Der Termin in Rastatt wurde auf den 20. Oktober verschoben. Danke für euer Verständnis!'
-      , datum: '2025-10-12', link: '/termine'
-    },
-  ];
+// Demo-Einträge – später durch Admin-Backend ersetzbar
+const announcements: Announcement[] = [
+  {
+    titel: 'Nächster Flohmarkt-Termin verlegt',
+    text: 'Der Termin in Rastatt wurde auf den 20. Oktober verschoben. Danke für euer Verständnis!',
+    datum: '2025-10-12',
+    link: '/termine',
+  },
+];
 
-  type Termin = {
-    ort: string;
-    datum: string; // ISO-Date (YYYY-MM-DD)
-    start: string; // "HH:MM"
-    ende: string;  // "HH:MM"
-    link: string;  // RouterLink target
-  };
+type Termin = {
+  ort: string;
+  datum: string; // ISO-Date (YYYY-MM-DD)
+  start: string; // "HH:MM"
+  ende: string; // "HH:MM"
+  link: string; // RouterLink target
+};
 
-  // Beispiel-Daten – kannst du später aus einer API/Datei laden
-  const events: Termin[] = [
-    { ort: 'Rastatt', datum: '2025-10-20', start: '10:00', ende: '17:00', link: '/rastatt' },
-    { ort: 'Kehl', datum: '2025-11-02', start: '09:00', ende: '16:00', link: '/kehl' },
-    { ort: 'Rheinstetten', datum: '2025-11-10', start: '10:00', ende: '17:00', link: '/rheinstetten' },
-  ];
+// Beispiel-Daten – kannst du später aus einer API/Datei laden
+const events: Termin[] = [
+  {
+    ort: 'Rastatt',
+    datum: '2025-10-20',
+    start: '10:00',
+    ende: '17:00',
+    link: '/rastatt',
+  },
+  {
+    ort: 'Kehl',
+    datum: '2025-11-02',
+    start: '09:00',
+    ende: '16:00',
+    link: '/kehl',
+  },
+  {
+    ort: 'Rheinstetten',
+    datum: '2025-11-10',
+    start: '10:00',
+    ende: '17:00',
+    link: '/rheinstetten',
+  },
+];
 
-  const df = new Intl.DateTimeFormat('de-DE', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
-  });
+const df = new Intl.DateTimeFormat('de-DE', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
 
-  function formatDate(iso: string): string {
-    // Safari-kompatible Umwandlung
-    const [y, m, d] = iso.split('-').map(Number);
-    return df.format(new Date(y, (m - 1), d));
-  }
+function formatDate(iso: string): string {
+  // Safari-kompatible Umwandlung
+  const [y, m, d] = iso.split('-').map(Number);
+  return df.format(new Date(y, m - 1, d));
+}
 
-  function formatTimeRange(start: string, ende: string): string {
-    return `${start} – ${ende}`;
-  }
+function formatTimeRange(start: string, ende: string): string {
+  return `${start} – ${ende}`;
+}
 </script>
 
 <style scoped>
@@ -183,7 +216,10 @@
   border-radius: 8px;
   font-weight: 500;
   color: #1f5fa6;
-  transition: background-color 0.2s, transform 0.15s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    transform 0.15s,
+    color 0.2s;
 }
 
 .nav-link:hover {
@@ -203,13 +239,16 @@
   display: block;
   border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    filter 0.2s;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 .clickable-image:hover {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
   filter: saturate(1.05);
 }
 
@@ -235,21 +274,35 @@
 .termin-card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   padding: 1rem 1.2rem;
   text-align: center;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .termin-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
 }
 
-.termin-header { margin-bottom: 6px; }
-.termin-location { margin: 0; font-size: 1.05rem; color: #17497f; }
-.termin-date { margin: 0.2rem 0 0; color: #333; }
-.termin-time { margin: 0.4rem 0 0.6rem; color: #444; }
+.termin-header {
+  margin-bottom: 6px;
+}
+.termin-location {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #17497f;
+}
+.termin-date {
+  margin: 0.2rem 0 0;
+  color: #333;
+}
+.termin-time {
+  margin: 0.4rem 0 0.6rem;
+  color: #444;
+}
 
 .termin-link {
   display: inline-block;
@@ -259,7 +312,9 @@
   background-color: #e7f0fb;
   color: #17497f;
   font-weight: 600;
-  transition: background-color 0.2s, transform 0.15s;
+  transition:
+    background-color 0.2s,
+    transform 0.15s;
 }
 
 .termin-link:hover {
@@ -269,8 +324,10 @@
 
 .visually-hidden {
   position: absolute !important;
-  height: 1px; width: 1px;
-  overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
 }
 
@@ -292,13 +349,20 @@
   background: #ffffff;
   border-radius: 12px;
   padding: 14px 16px 16px 16px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   border-left: 6px solid #1f5fa6;
 }
 
-.announcement-card + .announcement-card { margin-top: 12px; }
+.announcement-card + .announcement-card {
+  margin-top: 12px;
+}
 
-.announcement-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.announcement-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
 .badge {
   display: inline-block;
   font-size: 0.75rem;
@@ -309,9 +373,19 @@
   color: #17497f;
 }
 
-.announcement-date { color: #555; font-size: 0.9rem; }
-.announcement-title { margin: 2px 0 4px; font-weight: 700; color: #222; }
-.announcement-body { margin: 0 0 8px; color: #333; }
+.announcement-date {
+  color: #555;
+  font-size: 0.9rem;
+}
+.announcement-title {
+  margin: 2px 0 4px;
+  font-weight: 700;
+  color: #222;
+}
+.announcement-body {
+  margin: 0 0 8px;
+  color: #333;
+}
 
 .announcement-link {
   text-decoration: none;
@@ -322,5 +396,7 @@
   border-radius: 8px;
 }
 
-.announcement-link:hover { background: #e7f0fb; }
+.announcement-link:hover {
+  background: #e7f0fb;
+}
 </style>
