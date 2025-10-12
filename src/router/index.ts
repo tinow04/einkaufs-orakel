@@ -10,7 +10,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('/einkaufs-orakel/'),
+  history: createWebHistory('/flohrakel/'),
   routes,
 });
 
