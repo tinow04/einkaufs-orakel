@@ -125,10 +125,6 @@ function formatDate(iso: string): string {
   return df.format(new Date(y, m - 1, d));
 }
 
-function formatTimeRange(start: string, ende: string): string {
-  return `${start} – ${ende}`;
-}
-
 </script>
 
 <style scoped>

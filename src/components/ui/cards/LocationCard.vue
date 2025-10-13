@@ -1,16 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 
-type ImageItem = {
-  to: string;
-  src: string;
-  alt: string;
-};
-
-const props = defineProps<{
-  items: ImageItem[];
-  imgClass?: string;
-}>();
 // Inline SVG fallback to avoid missing file issues
 const fallback =
   "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect fill='%23f2f4f7' width='100%' height='100%'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2390a4ae' font-family='arial' font-size='32'>Bild nicht verfügbar</text></svg>";
