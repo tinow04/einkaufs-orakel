@@ -1,18 +1,6 @@
 <template>
   <div class="home">
-    <header class="page-header">
-      <div class="header-inner">
-        <nav class="nav-bar" aria-label="mainNavigation">
-          <div class="nav-left">
-            <RouterLink to="/" class="nav-link">Startseite</RouterLink>
-            <RouterLink to="/termine" class="nav-link">Termine</RouterLink>
-          </div>
-          <div class="nav-right">
-            <RouterLink to="/kontakt" class="nav-link">Kontakt</RouterLink>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <PageHeader />
     <section
       class="announcement-section"
       aria-labelledby="ank-heading"
@@ -58,22 +46,24 @@
     <section class="termine-section" aria-labelledby="termine-heading">
       <h2 id="termine-heading">Nächste Flohmarkt-Termine</h2>
       <div class="termine-grid">
-        <article class="termin-card" v-for="(e, idx) in events" :key="idx">
-          <header class="termin-header">
-            <h3 class="termin-location">{{ e.ort }}</h3>
-            <p class="termin-date">{{ formatDate(e.datum) }}</p>
-          </header>
-          <p class="termin-time">{{ formatTimeRange(e.start, e.ende) }} Uhr</p>
-          <RouterLink class="termin-link" :to="e.link"
-            >Mehr erfahren</RouterLink
-          >
-        </article>
+        <FixtureCard
+          v-for="(e, idx) in events"
+          :key="idx"
+          :ort="e.ort"
+          :datum="e.datum"
+          :start="e.start"
+          :ende="e.ende"
+          :link="e.link"
+        />
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+import PageHeader from '../components/ui/header/PageHeader.vue';
+import FixtureCard from '../components/ui/cards/FixtureCard.vue';
+
 type Announcement = {
   titel: string;
   text: string;
@@ -131,14 +121,10 @@ const df = new Intl.DateTimeFormat('de-DE', {
 });
 
 function formatDate(iso: string): string {
-  // Safari-kompatible Umwandlung
   const [y, m, d] = iso.split('-').map(Number);
   return df.format(new Date(y, m - 1, d));
 }
 
-function formatTimeRange(start: string, ende: string): string {
-  return `${start} – ${ende}`;
-}
 </script>
 
 <style scoped>
@@ -159,7 +145,7 @@ function formatTimeRange(start: string, ende: string): string {
   margin-bottom: clamp(40px, 8vh, 100px);
 }
 
-.page-header {
+:deep(.page-header) {
   position: sticky;
   top: 0;
   background: #ffffff;
@@ -169,11 +155,11 @@ function formatTimeRange(start: string, ende: string): string {
   border-radius: 12px;
 }
 
-.page-header h1 {
+:deep(.page-header h1) {
   display: none;
 }
 
-.header-inner {
+:deep(.header-inner) {
   max-width: 900px;
   margin: 0 auto;
   padding: 14px 30px;
@@ -183,7 +169,7 @@ function formatTimeRange(start: string, ende: string): string {
   gap: 24px;
 }
 
-.brand {
+:deep(.brand) {
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.2px;
@@ -191,26 +177,26 @@ function formatTimeRange(start: string, ende: string): string {
   color: #222;
 }
 
-.nav-bar {
+:deep(.nav-bar) {
   display: flex;
   gap: 18px;
   align-items: center;
 }
 
-.nav-bar {
+:deep(.nav-bar) {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.nav-left,
-.nav-right {
+:deep(.nav-left),
+:deep(.nav-right) {
   display: flex;
   align-items: center;
   gap: 18px;
 }
 
-.nav-link {
+:deep(.nav-link) {
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 8px;
@@ -222,14 +208,14 @@ function formatTimeRange(start: string, ende: string): string {
     color 0.2s;
 }
 
-.nav-link:hover {
+:deep(.nav-link:hover) {
   background-color: #f1f6fd;
   transform: translateY(-1px);
   color: #17497f;
 }
 
-.nav-link.router-link-active,
-.nav-link.router-link-exact-active {
+:deep(.nav-link.router-link-active),
+:deep(.nav-link.router-link-exact-active) {
   background-color: #e7f0fb;
   color: #17497f;
 }
